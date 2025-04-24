@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     textAlign:'center',
+    marginTop: -20,
   },
   movieItem: {
     padding: 10,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   },
   appNameContainer:{
     flex: 1,
-    marginTop: -50,
+    marginTop: -20,
   },
   textInput: {
     width: '100%',
