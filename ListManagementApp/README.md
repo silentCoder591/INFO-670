@@ -3,7 +3,7 @@
 
 ### Requirements
 #### 1. App Design and Purpose:
-* Purpose of list application:  You can easily add films to your personalized watchlist, stay updated on upcoming releases, and organize your cinematic interests in one place. Whether you're a casual viewer or a film enthusiast, [App Name] helps you stay on top of your movie-watching goals and discover new favorites.
+* Purpose of list application:  You can easily add films to your personalized watchlist, stay updated on upcoming releases, and organize your cinematic interests in one place. Whether you're a casual viewer or a film enthusiast, Movie Manager helps you stay on top of your movie-watching goals and discover new favorites.
 * User layout screenshot below: <br/> <br/>
   <img src="./assets/images/layouts.jpg" width="250" />
 
