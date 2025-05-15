@@ -15,70 +15,44 @@ The Movie Manager app is designed to be a sophisticated and user-friendly platfo
 ### Functionality
 
 #### Gallery View
-[Screenshot to be added]
-The Gallery screen presents users with a grid of top-rated movies, each displayed with a high-quality poster and title. The transparent design enhances the visual appeal while maintaining readability.
+The Gallery screen presents users with a grid of top-rated movies, each displayed with a high-quality poster and title. The transparent design enhances the visual appeal while maintaining readability. <br> <br>
+  <img src="./assets/images/main.jpg" width="250" />
 
 #### Picture Viewer
-[Screenshot to be added]
 The Picture Viewer displays a collection of high-quality screenshots for each movie. Users can:
 - View images in a responsive grid layout
 - Tap to view images in full-screen mode
 - Navigate between different movie scenes
 - Return to gallery with clear navigation
+ <br> <br>
+  <img src="./assets/images/pictures.jpg" width="250" />
+  <br> <br>
+  <img src="./assets/images/picture_full.jpg" width="250" />
 
 #### Profile Management
-[Screenshot to be added]
 The Profile section allows users to:
 - Enter and save personal information
 - Set notification preferences
 - Choose favorite movie genres
 - Manage profile visibility settings
 - Data persistence using AsyncStorage
-
-### Component Usage and Navigation
-
-#### Core Components
-[Screenshot to be added]
-The app utilizes various React Native and third-party components:
-- FlatList for efficient grid layouts
-- Modal for full-screen image viewing
-- TouchableOpacity for interactive elements
-- SafeAreaView for proper screen boundaries
-- Custom styled components for consistent UI
-
-#### Navigation Structure
-[Screenshot to be added]
-The app features intuitive navigation using:
-- Bottom tab navigation for main screens
-- Stack navigation for detailed views
-- Gesture-based navigation
-- Consistent back navigation
-
-### Styling Implementation
-[Screenshot to be added]
-The app's visual design includes:
-- Custom transparent backgrounds
-- Consistent color scheme
-- Responsive layouts
-- Typography hierarchy
-- Smooth animations and transitions
+ <br> <br>
+  <img src="./assets/images/profile_view.jpg" width="250" />
+   <br> <br>
+  <img src="./assets/images/profile_fill.jpg" width="250" />
+   <br> <br>
+  <img src="./assets/images/profile_save.jpg" width="250" />
 
 ### Error Handling
-[Screenshot to be added]
 Robust error handling implemented for:
 - Form validation in profile management
 - Image loading fallbacks
-- Navigation state management
 - Data persistence verification
-- User feedback messages
+  <br> <br>
+  <img src="./assets/images/error_profile.jpg" width="250" />
+   <br> <br>
+  <img src="./assets/images/clear_profile.jpg" width="250" />
 
-### Documentation
-The project includes:
-- Comprehensive README.md
-- Clear code organization
-- Component documentation
-- Setup instructions
-- Usage guidelines
 
 ## Project Structure
 ```
