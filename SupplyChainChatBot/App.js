@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Platform, KeyboardAvoidingView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-
-const API_URL = 'http://localhost:3000/api';
 
 export default function App() {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [apiUrl, setApiUrl] = useState(''); // Will be set from config file
+
+  // Read IP address from config file
+  useEffect(() => {
+    const readConfig = async () => {
+      try {
+        // For development, use a default IP
+        const defaultIP = '192.168.1.151';
+        setApiUrl(`http://${defaultIP}:3000/api`);
+        console.log('Using default IP:', defaultIP);
+
+
+      } catch (error) {
+        console.error('Error reading config:', error);
+      }
+    };
+    readConfig();
+  }, []);
 
   // Add initial welcome message
   useEffect(() => {
@@ -39,8 +55,7 @@ export default function App() {
 
       // Handle different commands
       if (lowerMessage.includes('list pending purchase orders')) {
-        // Use existing REST API to get pending POs
-        const pendingResponse = await fetch(`${API_URL}/purchase-orders/pending`);
+        const pendingResponse = await fetch(`${apiUrl}/purchase-orders/pending`);
         const pendingData = await pendingResponse.json();
         
         if (pendingData.status === 'success') {
@@ -65,15 +80,34 @@ export default function App() {
         if (match) {
           const poNumber = match[1];
           // Use existing REST API to get PO details
-          const poResponse = await fetch(`${API_URL}/purchase-orders/${poNumber}`);
+          const poResponse = await fetch(`${apiUrl}/purchase-orders/${poNumber}`);
           const poData = await poResponse.json();
           
           if (poData.status === 'success') {
+            // Format all fields except _id and __v
+            const details = Object.entries(poData.data)
+              .filter(([key]) => !['_id', '__v'].includes(key))
+              .map(([key, value]) => {
+                // Format the key name (capitalize and add spaces)
+                const formattedKey = key
+                  .replace(/([A-Z])/g, ' $1') // Add space before capital letters
+                  .replace(/^./, str => str.toUpperCase()); // Capitalize first letter
+                
+                // Format the value based on its type
+                let formattedValue = value;
+                if (value instanceof Date) {
+                  formattedValue = new Date(value).toLocaleString();
+                } else if (typeof value === 'object' && value !== null) {
+                  formattedValue = JSON.stringify(value, null, 2);
+                }
+                
+                return `${formattedKey}: ${formattedValue}`;
+              })
+              .join('\n');
+            
             response = {
               status: 'success',
-              text: `Details for PO ${poNumber}:\n` +
-                    `Status: ${poData.data.status}\n` +
-                    `Created: ${new Date(poData.data.createdAt).toLocaleDateString()}`,
+              text: `Details for PO ${poNumber}:\n${details}`,
               data: poData.data
             };
           } else {
@@ -96,7 +130,7 @@ export default function App() {
           const newStatus = match[2].charAt(0).toUpperCase() + match[2].slice(1);
           
           // Use existing REST API to update PO status
-          const updateResponse = await fetch(`${API_URL}/purchase-orders/${poNumber}/status`, {
+          const updateResponse = await fetch(`${apiUrl}/purchase-orders/${poNumber}/status`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -156,7 +190,11 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
+    >
       <StatusBar style="auto" />
       <View style={styles.header}>
         <Text style={styles.headerText}>Supply Chain ChatBot</Text>
@@ -174,7 +212,10 @@ export default function App() {
               msg.isUser ? styles.userBubble : styles.botBubble,
             ]}
           >
-            <Text style={styles.messageText}>{msg.text}</Text>
+            <Text style={[
+              styles.messageText,
+              msg.isUser ? styles.userMessageText : styles.botMessageText
+            ]}>{msg.text}</Text>
           </View>
         ))}
         {isLoading && (
@@ -201,7 +242,7 @@ export default function App() {
           <Text style={styles.sendButtonText}>Send</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -235,7 +276,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   userBubble: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#4A90E2',
     alignSelf: 'flex-end',
     borderBottomRightRadius: 5,
   },
@@ -245,8 +286,13 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 5,
   },
   messageText: {
-    color: '#333',
     fontSize: 16,
+  },
+  userMessageText: {
+    color: 'white',
+  },
+  botMessageText: {
+    color: '#333',
   },
   inputContainer: {
     flexDirection: 'row',
