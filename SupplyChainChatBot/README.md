@@ -45,7 +45,7 @@ cd SupplyChainChatBot
    MONGODB_URI=mongodb://localhost:27017/supplychain
    ```
 
-4. Run the database setup script:
+4. Run the database setup script. This will setup mongodb schema and load sample data.
    ```bash
    node setup.js
    ```
@@ -91,18 +91,24 @@ SupplyChainChatBot/
 ## Requirements
 
 ### 1. Front-end
-- React Native mobile application with Expo framework
-- Real-time chat interface for user interactions
-- Data Operations:
-  - Write Operations:
-    - Submit purchase order status updates
-    - Send user queries and commands
-  - Read Operations:
-    - Display pending purchase orders
-    - Show detailed purchase order information
-    - Present formatted responses from the server
-- Responsive UI with message bubbles and loading states
-- Error handling and user feedback mechanisms
+
+
+#### Chat Interface
+![Chat Interface](screenshots/chat-interface.png)
+*Main chat interface showing the conversation flow and message bubbles*
+
+#### Purchase Order List
+![Purchase Order List](screenshots/po-list.png)
+*List view of all purchase orders with their current status*
+
+#### Purchase Order Details
+![Purchase Order Details](screenshots/po-details.png)
+*Detailed view of a specific purchase order showing all relevant information*
+
+#### Status Update Confirmation
+![Status Update](screenshots/status-update.png)
+*Confirmation screen after updating a purchase order status*
+
 
 ### 2. Server APIs
 
@@ -227,23 +233,83 @@ All endpoints may return the following error response in case of server errors:
 - Response formatting and data transformation
 
 ### 3. Database/Datastore Integration
-- MongoDB Schema Design:
-  ```javascript
-  PurchaseOrder {
-    poNumber: String,      // Unique identifier
-    status: String,        // Current status (Pending/Approved/Delivered/Cancelled)
-    createdAt: Date,       // Creation timestamp
-    updatedAt: Date,       // Last update timestamp
-    // Additional fields as needed
+
+#### Database Schema
+
+##### PurchaseOrder Collection
+```javascript
+{
+  poNumber: {
+    type: String,
+    required: true,
+    unique: true,
+    description: "Unique identifier for the purchase order"
+  },
+  orderDate: {
+    type: Date,
+    required: true,
+    description: "Date when the purchase order was created"
+  },
+  supplier: {
+    type: String,
+    required: true,
+    description: "Name of the supplier for this purchase order"
+  },
+  status: {
+    type: String,
+    enum: ['Pending', 'Approved', 'Delivered', 'Cancelled'],
+    default: 'Pending',
+    description: "Current status of the purchase order"
+  },
+  totalAmount: {
+    type: Number,
+    required: true,
+    description: "Total monetary value of the purchase order"
+  },
+  itemName: {
+    type: String,
+    description: "Name of the item being ordered"
+  },
+  quantity: {
+    type: Number,
+    description: "Quantity of items ordered"
+  },
+  unitPrice: {
+    type: Number,
+    description: "Price per unit of the item"
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    description: "Timestamp when the record was created"
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+    description: "Timestamp when the record was last updated"
   }
-  ```
-- NoSQL Implementation:
-  - MongoDB as the primary database
-  - Flexible schema design for easy modifications
-  - Efficient querying and indexing
-  - Data validation and type checking
-  - Automatic timestamp management
-  - Built-in support for JSON data structures
+}
+```
+
+#### Schema Features
+- **Required Fields**: poNumber, orderDate, supplier, totalAmount
+- **Unique Constraints**: poNumber must be unique
+- **Default Values**: 
+  - status defaults to 'Pending'
+  - createdAt and updatedAt default to current timestamp
+- **Automatic Updates**: updatedAt is automatically updated on save
+- **Validation**:
+  - status must be one of: 'Pending', 'Approved', 'Delivered', 'Cancelled'
+  - All required fields must be present
+  - poNumber must be unique
+
+#### Database Implementation
+- MongoDB as the primary database
+- Mongoose ODM for schema definition and validation
+- Automatic timestamp management
+- Built-in support for JSON data structures
+- Efficient querying and indexing
+- Data validation and type checking
 
 ## Available Commands
 
