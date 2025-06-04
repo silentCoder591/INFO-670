@@ -105,44 +105,126 @@ SupplyChainChatBot/
 - Error handling and user feedback mechanisms
 
 ### 2. Server APIs
-- RESTful API endpoints for purchase orders:
-  - `GET /api/purchase-orders`:
-    - Retrieves all purchase orders
-    - Returns list of purchase orders with status
-  - `GET /api/purchase-orders/pending`:
-    - Retrieves all pending purchase orders
-    - Returns filtered list of pending orders
-  - `GET /api/purchase-orders/:id`:
-    - Retrieves a specific purchase order by PO number
-    - Returns detailed purchase order information
-  - `PUT /api/purchase-orders/:id/status`:
-    - Updates the status of a specific purchase order
-    - Validates status values (Pending/Approved/Delivered/Cancelled)
-    - Returns updated purchase order data
 
-- JSON Response Format:
-  ```json
-  {
-    "status": "success/error",
-    "data": { /* purchase order data */ },
-    "message": "Optional message for status updates"
-  }
-  ```
+#### Purchase Orders Endpoints
 
-- Error Response Format:
-  ```json
-  {
-    "status": "error",
-    "message": "Error description",
-    "error": "Detailed error message"
-  }
-  ```
+1. **Get All Purchase Orders**
+   - Endpoint: `GET /api/purchase-orders`
+   - Description: Retrieves all purchase orders from the database
+   - Response Example:
+     ```json
+     {
+       "status": "success",
+       "data": [
+         {
+           "poNumber": "4500009285",
+           "status": "Pending",
+           "createdAt": "2024-03-20T10:00:00.000Z",
+           "updatedAt": "2024-03-20T10:00:00.000Z"
+         }
+       ]
+     }
+     ```
 
-- Data Handling:
-  - MongoDB integration for persistent storage
-  - Input validation and sanitization
-  - Error handling with appropriate status codes
-  - Response formatting and data transformation
+2. **Get Pending Purchase Orders**
+   - Endpoint: `GET /api/purchase-orders/pending`
+   - Description: Retrieves all purchase orders with 'Pending' status
+   - Response Example:
+     ```json
+     {
+       "status": "success",
+       "data": [
+         {
+           "poNumber": "4500009285",
+           "status": "Pending",
+           "createdAt": "2024-03-20T10:00:00.000Z",
+           "updatedAt": "2024-03-20T10:00:00.000Z"
+         }
+       ]
+     }
+     ```
+
+3. **Get Purchase Order by ID**
+   - Endpoint: `GET /api/purchase-orders/:id`
+   - Parameters:
+     - `id` (path parameter): Purchase Order number
+   - Description: Retrieves a specific purchase order by its PO number
+   - Response Example:
+     ```json
+     {
+       "status": "success",
+       "data": {
+         "poNumber": "4500009285",
+         "status": "Pending",
+         "createdAt": "2024-03-20T10:00:00.000Z",
+         "updatedAt": "2024-03-20T10:00:00.000Z"
+       }
+     }
+     ```
+   - Error Response (404):
+     ```json
+     {
+       "status": "error",
+       "message": "Purchase order not found"
+     }
+     ```
+
+4. **Update Purchase Order Status**
+   - Endpoint: `PUT /api/purchase-orders/:id/status`
+   - Parameters:
+     - `id` (path parameter): Purchase Order number
+     - `status` (body parameter): New status value
+   - Request Body:
+     ```json
+     {
+       "status": "Approved"
+     }
+     ```
+   - Valid Status Values: "Pending", "Approved", "Delivered", "Cancelled"
+   - Response Example:
+     ```json
+     {
+       "status": "success",
+       "message": "Purchase order 4500009285 status updated to Approved",
+       "data": {
+         "poNumber": "4500009285",
+         "status": "Approved",
+         "createdAt": "2024-03-20T10:00:00.000Z",
+         "updatedAt": "2024-03-20T10:05:00.000Z"
+       }
+     }
+     ```
+   - Error Responses:
+     - Invalid Status (400):
+       ```json
+       {
+         "status": "error",
+         "message": "Invalid status. Must be one of: Pending, Approved, Delivered, Cancelled"
+       }
+       ```
+     - Not Found (404):
+       ```json
+       {
+         "status": "error",
+         "message": "Purchase order not found"
+       }
+       ```
+
+#### Error Handling
+All endpoints may return the following error response in case of server errors:
+```json
+{
+  "status": "error",
+  "message": "Error description",
+  "error": "Detailed error message"
+}
+```
+
+#### Data Handling
+- MongoDB integration for persistent storage
+- Input validation and sanitization
+- Error handling with appropriate status codes
+- Response formatting and data transformation
 
 ### 3. Database/Datastore Integration
 - MongoDB Schema Design:
