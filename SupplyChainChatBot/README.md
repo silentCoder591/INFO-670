@@ -105,36 +105,43 @@ SupplyChainChatBot/
 - Error handling and user feedback mechanisms
 
 ### 2. Server APIs
-- RESTful API endpoints for data operations:
-  - `/api/chat/process`:
-    - Handles data processing and storage
-    - Updates purchase order statuses
-    - Validates input data
-    - Returns success/error responses
-  - `/api/chat/read`:
-    - Processes data retrieval requests
-    - Lists pending purchase orders
-    - Fetches detailed purchase order information
-    - Returns formatted data responses
-- JSON Implementation:
-  - Request Format:
-    ```json
-    {
-      "message": "user input text"
-    }
-    ```
-  - Response Format:
-    ```json
-    {
-      "status": "success/error",
-      "text": "formatted response text",
-      "data": { /* optional data object */ }
-    }
-    ```
+- RESTful API endpoints for purchase orders:
+  - `GET /api/purchase-orders`:
+    - Retrieves all purchase orders
+    - Returns list of purchase orders with status
+  - `GET /api/purchase-orders/pending`:
+    - Retrieves all pending purchase orders
+    - Returns filtered list of pending orders
+  - `GET /api/purchase-orders/:id`:
+    - Retrieves a specific purchase order by PO number
+    - Returns detailed purchase order information
+  - `PUT /api/purchase-orders/:id/status`:
+    - Updates the status of a specific purchase order
+    - Validates status values (Pending/Approved/Delivered/Cancelled)
+    - Returns updated purchase order data
+
+- JSON Response Format:
+  ```json
+  {
+    "status": "success/error",
+    "data": { /* purchase order data */ },
+    "message": "Optional message for status updates"
+  }
+  ```
+
+- Error Response Format:
+  ```json
+  {
+    "status": "error",
+    "message": "Error description",
+    "error": "Detailed error message"
+  }
+  ```
+
 - Data Handling:
   - MongoDB integration for persistent storage
   - Input validation and sanitization
-  - Error handling and status codes
+  - Error handling with appropriate status codes
   - Response formatting and data transformation
 
 ### 3. Database/Datastore Integration
