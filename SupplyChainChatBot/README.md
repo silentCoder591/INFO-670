@@ -94,8 +94,19 @@ SupplyChainChatBot/
 
 
 #### Chat Interface
-![Chat Interface](screenshots/chat-interface.png)
+![Chat Interface]
+<!-- (screenshots/chat-interface.png) -->
 *Main chat interface showing the conversation flow and message bubbles*
+<div style="display: flex; justify-content: space-between; margin: 20px 0;">
+    <div style="width: 48%;">
+        <img src="screenshots/chat-interface.png" alt="Chat Interface" style="width: 100%; height: auto;"/>
+        <p style="text-align: center; font-style: italic;">Main chat interface showing the conversation flow</p>
+    </div>
+    <div style="width: 48%;">
+        <img src="screenshots/help-msg.png" alt="Purchase Order List" style="width: 100%; height: auto;"/>
+        <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
+    </div>
+</div>
 
 #### Purchase Order List
 ![Purchase Order List](screenshots/po-list.png)
