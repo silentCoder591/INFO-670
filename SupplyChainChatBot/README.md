@@ -20,26 +20,6 @@ A React Native mobile application with a Node.js backend for managing supply cha
   ```bash
   mongod --version
   ```
-
-### 3. React Native Development Environment
-1. Install Expo CLI globally:
-   ```bash
-   npm install -g expo-cli
-   ```
-
-2. Install Expo Go app on your mobile device:
-   - [Android Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent)
-   - [iOS App Store](https://apps.apple.com/app/expo-go/id982107779)
-
-3. Install development tools:
-   - For Android development:
-     - Install Android Studio
-     - Install Android SDK
-     - Set up Android emulator
-   - For iOS development (Mac only):
-     - Install Xcode
-     - Install iOS Simulator
-
 ## Project Setup
 
 ### 1. Clone the Repository
@@ -85,39 +65,15 @@ cd SupplyChainChatBot
    ```bash
    npx expo start
    ```
+3. Update the IP address in App.js
+   ```bash
+   const defaultIP = '192.XXX.X.XXX';
+   ```
 
-3. Run the app:
+4. Run the app:
    - Scan QR code with Expo Go app (Android) or Camera app (iOS)
    - Press 'a' to run on Android emulator
    - Press 'i' to run on iOS simulator (Mac only)
-
-## Troubleshooting
-
-### Common Issues
-1. **Expo not found**
-   - Solution: Run `npm install -g expo-cli`
-
-2. **MongoDB connection error**
-   - Solution: Ensure MongoDB service is running
-   - Check MongoDB connection string in .env file
-
-3. **Port already in use**
-   - Solution: Change PORT in .env file
-   - Kill process using the port
-
-4. **Expo Go app connection issues**
-   - Solution: Ensure phone and computer are on same network
-   - Check firewall settings
-
-## Configuration
-
-1. Update the IP address in `config.txt`:
-   - Open `config.txt` in the root directory
-   - Replace the IP_ADDRESS value with your computer's IP address
-   - To find your IP address:
-     - Windows: Run `ipconfig` in Command Prompt
-     - Mac/Linux: Run `ifconfig` in Terminal
-   - Make sure your phone and computer are on the same network
 
 ## Project Structure
 
