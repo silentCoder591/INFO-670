@@ -14,7 +14,7 @@ A React Native mobile application with a Node.js backend for managing supply cha
   ```
 
 ### 2. MongoDB
-- Install MongoDB (v4.4 or higher) from [mongodb.com](https://www.mongodb.com/try/download/community)
+- Install MongoDB Community Server from [Download MongoDB Community Server](https://www.mongodb.com/try/download/community?tck=docs_server)
 - Start MongoDB service on your system
 - Verify installation:
   ```bash
@@ -45,12 +45,16 @@ cd SupplyChainChatBot
    MONGODB_URI=mongodb://localhost:27017/supplychain
    ```
 
-4. Run the database setup script. This will setup mongodb schema and load sample data.
+4. Create New Connection in MongoDB Compass:
+   ```
+   mongodb://localhost:27017/
+   ```
+6. Run the database setup script. This will setup mongodb schema and load sample data.
    ```bash
    node setup.js
    ```
 
-5. Start the server:
+7. Start the server:
    ```bash
    npm start
    ```
