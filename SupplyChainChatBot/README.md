@@ -45,16 +45,12 @@ cd SupplyChainChatBot
    MONGODB_URI=mongodb://localhost:27017/supplychain
    ```
 
-4. Create New Connection in MongoDB Compass:
-   ```
-   mongodb://localhost:27017/
-   ```
-6. Run the database setup script. This will setup mongodb schema and load sample data.
+4. Run the database setup script. This will setup mongodb schema and load sample data.
    ```bash
    node setup.js
    ```
 
-7. Start the server:
+5. Start the server:
    ```bash
    npm start
    ```
@@ -65,16 +61,20 @@ cd SupplyChainChatBot
    npm install
    ```
 
-2. Start the React Native app:
-   ```bash
-   npx expo start
-   ```
-3. Update the IP address in App.js
+2. Update the IP address in App.js
    ```bash
    const defaultIP = '192.XXX.X.XXX';
    ```
+3. Start the React Native app:
+   ```bash
+   npx expo start
+   ```
+4. If you face error - _"java.io.IOException: Failed to download remote update"_, then start the app using below command:
+   ```bash
+   npx expo start --tunnel
+   ```
 
-4. Run the app:
+5. Run the app:
    - Scan QR code with Expo Go app (Android) or Camera app (iOS)
    - Press 'a' to run on Android emulator
    - Press 'i' to run on iOS simulator (Mac only)
