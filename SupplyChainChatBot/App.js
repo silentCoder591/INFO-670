@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Platform, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Platform, KeyboardAvoidingView, Keyboard } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
@@ -34,6 +34,20 @@ export default function App() {
         isUser: false,
       },
     ]);
+  }, []);
+
+  // Add keyboard handling
+  useEffect(() => {
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        // Reset any keyboard-related state if needed
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+    };
   }, []);
 
   const handleSend = async () => {
@@ -191,9 +205,9 @@ export default function App() {
 
   return (
     <KeyboardAvoidingView 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={styles.container}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 120}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
     >
       <StatusBar style="auto" />
       <View style={styles.header}>
@@ -203,6 +217,7 @@ export default function App() {
       <ScrollView 
         style={styles.chatContainer}
         contentContainerStyle={styles.chatContent}
+        keyboardShouldPersistTaps="handled"
       >
         {chatHistory.map((msg) => (
           <View
@@ -225,7 +240,10 @@ export default function App() {
         )}
       </ScrollView>
 
-      <View style={styles.inputContainer}>
+      <View style={[
+        styles.inputContainer,
+        Platform.OS === 'android' && { position: 'relative' }
+      ]}>
         <TextInput
           style={styles.input}
           value={message}
@@ -300,7 +318,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopWidth: 1,
     borderTopColor: '#ddd',
-    paddingBottom: Platform.OS === 'android' ? 30 : 10,
+    paddingBottom: Platform.OS === 'android' ? 20 : 10,
   },
   input: {
     flex: 1,
