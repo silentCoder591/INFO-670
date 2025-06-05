@@ -38,6 +38,16 @@ export default function App() {
 
   // Add keyboard handling
   useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        // Scroll to bottom when keyboard shows
+        setTimeout(() => {
+          scrollViewRef.current?.scrollToEnd({ animated: true });
+        }, 100);
+      }
+    );
+
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
       () => {
@@ -46,9 +56,13 @@ export default function App() {
     );
 
     return () => {
+      keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  // Add ref for ScrollView
+  const scrollViewRef = React.useRef(null);
 
   const handleSend = async () => {
     if (!message.trim()) return;
@@ -205,9 +219,9 @@ export default function App() {
 
   return (
     <KeyboardAvoidingView 
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 100}
     >
       <StatusBar style="auto" />
       <View style={styles.header}>
@@ -215,6 +229,7 @@ export default function App() {
       </View>
       
       <ScrollView 
+        ref={scrollViewRef}
         style={styles.chatContainer}
         contentContainerStyle={styles.chatContent}
         keyboardShouldPersistTaps="handled"
@@ -242,7 +257,14 @@ export default function App() {
 
       <View style={[
         styles.inputContainer,
-        Platform.OS === 'android' && { position: 'relative' }
+        Platform.OS === 'android' && { 
+          position: 'relative',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: 'white',
+          elevation: 5
+        }
       ]}>
         <TextInput
           style={styles.input}
@@ -318,7 +340,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopWidth: 1,
     borderTopColor: '#ddd',
-    paddingBottom: Platform.OS === 'android' ? 20 : 10,
+    paddingBottom: Platform.OS === 'android' ? 25 : 10,
   },
   input: {
     flex: 1,
