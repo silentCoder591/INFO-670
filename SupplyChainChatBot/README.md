@@ -103,22 +103,28 @@ SupplyChainChatBot/
         <p style="text-align: center; font-style: italic;">Main chat interface showing the conversation flow</p>
     </div>
     <div style="width: 48%;">
-        <img src="screenshots/help-msg.png" alt="Purchase Order List" style="width: 100%; height: auto;"/>
+        <img src="screenshots/help-msg.png" alt="Welcome Message" style="width: 100%; height: auto;"/>
         <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
     </div>
 </div>
 
 #### Purchase Order List
-![Purchase Order List](screenshots/po-list.png)
-*List view of all purchase orders with their current status*
+  <div style="width: 48%;">
+      <img src="screenshots/pending_po.jpg" alt="Purchase Order List" style="width: 100%; height: auto;"/>
+      <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
+  </div>
 
 #### Purchase Order Details
-![Purchase Order Details](screenshots/po-details.png)
-*Detailed view of a specific purchase order showing all relevant information*
+  <div style="width: 48%;">
+      <img src="screenshots/details.jpg" alt="Purchase Order Details" style="width: 100%; height: auto;"/>
+      <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
+  </div>
 
-#### Status Update Confirmation
-![Status Update](screenshots/status-update.png)
-*Confirmation screen after updating a purchase order status*
+#### Purchase Order Status Update
+  <div style="width: 48%;">
+      <img src="screenshots/status-update.jpg" alt="Purchase Order Status Update" style="width: 100%; height: auto;"/>
+      <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
+  </div>*Confirmation screen after updating a purchase order status*
 
 
 ### 2. Server APIs
