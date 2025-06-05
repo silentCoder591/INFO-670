@@ -193,7 +193,7 @@ export default function App() {
     <KeyboardAvoidingView 
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 80}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 120}
     >
       <StatusBar style="auto" />
       <View style={styles.header}>
@@ -300,6 +300,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopWidth: 1,
     borderTopColor: '#ddd',
+    paddingBottom: Platform.OS === 'android' ? 30 : 10,
   },
   input: {
     flex: 1,
