@@ -97,30 +97,25 @@ SupplyChainChatBot/
 <div style="display: flex; justify-content: space-between; margin: 20px 0;">
     <div style="width: 30%;">
         <img src="screenshots/chat-interface.png" alt="Chat Interface" style="width: 30%; height: auto;"/>
-        <p style="text-align: center; font-style: italic;">Main chat interface showing the conversation flow</p>
     </div>
     <div style="width: 30%;">
         <img src="screenshots/help-msg.jpg" alt="Welcome Message" style="width: 30%; height: auto;"/>
-        <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
     </div>
 </div>
 
 #### Purchase Order List
   <div style="width: 30%;">
       <img src="screenshots/pending_po.jpg" alt="Purchase Order List" style="width: 30%; height: auto;"/>
-      <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
   </div>
 
 #### Purchase Order Details
   <div style="width: 30%;">
       <img src="screenshots/details.jpg" alt="Purchase Order Details" style="width: 30%; height: auto;"/>
-      <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
   </div>
 
 #### Purchase Order Status Update
   <div style="width: 30%;">
       <img src="screenshots/status-update.jpg" alt="Purchase Order Status Update" style="width: 30%; height: auto;"/>
-      <p style="text-align: center; font-style: italic;">List view of all purchase orders</p>
   </div>
 
 
