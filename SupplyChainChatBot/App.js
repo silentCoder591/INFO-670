@@ -193,7 +193,7 @@ export default function App() {
     <KeyboardAvoidingView 
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 80}
     >
       <StatusBar style="auto" />
       <View style={styles.header}>
